@@ -1,0 +1,19 @@
+﻿@model Messanger.Data.ViewModels.ProfileViewModel
+
+<a asp-action="Index" asp-controller="Users" class="btn btn-block">Назад</a>
+@if (User.Identity.IsAuthenticated && User.Identity.Name == Model.UserName)
+{
+    <form asp-action="Delete" asp-route-id="@Model.UserId" method="post">
+        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@Model.UserId">Изменить</a>
+        <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-controller="Users" asp-route-id="@Model.UserId">Изменить пароль</a>
+        <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+    </form>
+}
+<h2>Профиль @Model.UserName</h2>
+<div class="container " style="text-align:center;">
+    <img src="~/image/photo.png" width="150" height="150"/>
+    <p> Имя: @Model.FirstName</p> <br />
+    <p> Фамилия: @Model.LastName</p> <br />
+    <p> Год Рождения: @Model.Year</p> <br />
+    <p> Город: @Model.Town</p> <br />
+</div>

@@ -1,0 +1,20 @@
+﻿@model Messanger.Data.ViewModels.HomeViewModel
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Index" asp-controller="Users" class="btn btn-dark">Все пользователи</a>
+
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login" class="btn btn-dark">Вход</a>
+    <a asp-controller="Account" asp-action="Register" class="btn btn-dark">Регистрация</a>
+}
+
+
+
