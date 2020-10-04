@@ -1,0 +1,33 @@
+﻿@model Messanger.Data.ViewModels.ChatMessagesViewModel
+
+@{ ViewBag.Tittle = "Чат";}
+
+    <div class="container" style="text-align:center">
+        @foreach (var message in Model.ChatMessages)
+        {
+            @if (User.Identity.Name == message.Author.UserName)
+            {
+                <div class="alert alert-dark mt-3" style="text-align:right">
+                    <b>@message.Author.UserName</b> <b style="text-align:right">@message.PostDate</b>
+                    <b>@message.TextMessage</b>
+                </div>
+
+            }
+            else
+            {
+                <div class="alert alert-dark mt-3">
+                    <b>@message.Author.UserName</b> <b style="text-align:right">@message.PostDate</b>
+                    <b>@message.TextMessage</b>
+                </div>
+
+            }
+         }
+
+    <form method="post" asp-action="Index" asp-controller="Chat">
+        <input type="hidden" name="ChatId" value="@Model.ChatId" />
+        <input type="hidden" name="UserName" value="@User.Identity.Name" />
+        <input type ="hidden" name="ChatMessages" value="@Model.ChatMessages" />
+        <input type="text" asp-for="TextMessage" />
+        <input type="submit" value="Отправить" class=" btn btn-group" />
+    </form>
+    </div>

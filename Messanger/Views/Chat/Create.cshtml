@@ -1,0 +1,26 @@
+﻿@model Messanger.Data.ViewModels.CreateChatViewModel
+
+
+
+    <form asp-action="Create" asp-controller="Chat">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Название чата</label>
+            <input type="text" asp-for="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            @foreach (var user in ViewBag.Users)
+            {
+                @if (User.Identity.Name != user.Email)
+                {
+                    <input type="checkbox" name="Members" value="@user.Email" /><b>@user.FirstName  @user.LastName</b><br />
+                }
+                
+            }
+        </div>
+        <input type="hidden" name="UserName" value="@User.Identity.Name" />
+        <div>
+            <input type="submit" class="btn btn-outline-secondary" value="Создать" />
+        </div>
+    </form>

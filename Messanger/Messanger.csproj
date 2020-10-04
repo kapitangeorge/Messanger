@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Interfaces\" />
-    <Folder Include="Data\Repository\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\image\" />
   </ItemGroup>

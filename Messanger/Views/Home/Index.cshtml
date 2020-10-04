@@ -4,8 +4,11 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <a asp-action="Index" asp-controller="Users" class="btn btn-dark">Все пользователи</a>
-
+    <div>
+        <a asp-action="Index" asp-controller="Users" class="btn btn-dark">Все пользователи</a>
+        <a asp-action="Chats" asp-controller="Chat" class="btn btn-dark" asp-route-userName="@User.Identity.Name">Чаты</a>
+    </div>
+    
     <form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
     </form>

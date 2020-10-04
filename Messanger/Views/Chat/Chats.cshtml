@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Messanger.Data.Models.Chat>
+@{
+    ViewData["Title"] = "Чаты";
+}
+
+<h2>Все чаты</h2>
+@if (Model == null)
+{
+    <div class="container"><a asp-action="Create" as-controller="Chat" class="btn btn-dark">Создать чат</a></div>
+}
+else
+{
+    <div class="container"><a asp-action="Create" as-controller="Chat" class="btn btn-dark">Создать чат</a></div>
+
+    @foreach (var chat in Model)
+    {
+        <div class="alert alert-warning mt-3">
+            <b>Название: </b> @chat.Name   <a asp-action="Index" asp-controller="Chat" asp-all-route-Id="@chat.Id" class="btn btn-success" style="text-align:right">Войти</a><br />
+            <b>Создатель: </b> @chat.Creator <br />
+
+        </div>
+    }
+}
+
+

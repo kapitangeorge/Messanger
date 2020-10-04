@@ -15,6 +15,8 @@ namespace Messanger.Data
             Database.EnsureCreated();
         }
 
-      
+        public DbSet<Chat> Chats { get; set; }
+
+        public DbSet<ChatMessage> ChatMessages { get; set; }
     }
 }

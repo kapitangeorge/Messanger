@@ -18,6 +18,8 @@ namespace Messanger.Data.Models
         public string Town { get; set; }
 
         public string Img { get; set; }
+
+        public List<int> ChatId { get; set; }
     }
 
 }

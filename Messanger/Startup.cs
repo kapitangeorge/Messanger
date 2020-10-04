@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Messanger.Data;
+using Messanger.Data.Interfaces;
 using Messanger.Data.Models;
+using Messanger.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +29,7 @@ namespace Messanger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IPasswordValidator<ApplicationUser>, CustomPasswordValidator>(serv => new CustomPasswordValidator(6));
+            services.AddTransient<IAllChats, ChatRepository>();
             services.AddMvc();
             services.AddEntityFrameworkNpgsql().AddDbContext<AppDBContext>(options => 
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
