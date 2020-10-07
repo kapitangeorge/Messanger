@@ -15,7 +15,7 @@ else
     @foreach (var chat in Model)
     {
         <div class="alert alert-warning mt-3">
-            <b>Название: </b> @chat.Name   <a asp-action="Index" asp-controller="Chat" asp-all-route-Id="@chat.Id" class="btn btn-success" style="text-align:right">Войти</a><br />
+            <b>Название: </b> @chat.Name   <a asp-action="Index" asp-controller="Chat" asp-route-chatId="@chat.Id" class="btn btn-success" style="text-align:right">Войти</a><br />
             <b>Создатель: </b> @chat.Creator <br />
 
         </div>

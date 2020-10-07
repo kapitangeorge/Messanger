@@ -13,7 +13,7 @@ namespace Messanger.Data.Models
 
         public string TextMessage { get; set; }
 
-        public ApplicationUser Author { get; set; }
+        public string Author { get; set; }
 
         public DateTime PostDate { get; set; }
     }

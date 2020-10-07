@@ -64,12 +64,19 @@ namespace Messanger.Controllers
             {
                 var creator = await _userManager.FindByNameAsync(model.UserName);
 
-                Chat chat = new Chat { Name = model.Name, Creator = creator };
+                Chat chat = new Chat { Name = model.Name, Creator = creator.UserName };
                 List<ApplicationUser> users = new List<ApplicationUser>();
-                
-                foreach(var memberName in model.Members)
+
+                if (model.Members != null)
                 {
-                    users.Add(await _userManager.FindByNameAsync(memberName));
+                    foreach (var memberName in model.Members)
+                    {
+                        users.Add(await _userManager.FindByNameAsync(memberName));
+                    }
+                }
+                else
+                {
+                    users.Add(creator);
                 }
                 chat.Members = users;
                 chats.CreateChat(chat);
@@ -83,7 +90,7 @@ namespace Messanger.Controllers
                     await _userManager.UpdateAsync(user);
                 }
 
-                return RedirectToAction();
+                return RedirectToAction("Chats", "Chat", new { UserName = model.UserName} );
             }
             return View(model);
         }
@@ -99,20 +106,20 @@ namespace Messanger.Controllers
             
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(int chatId)
         {
-            List<ChatMessage> messages = _appDBContext.ChatMessages.Where(c => c.ChatId == id).OrderBy(c=> c.PostDate).ToList();
-            ChatMessagesViewModel model = new ChatMessagesViewModel { ChatId = id, ChatMessages = messages };
+            List<ChatMessage> messages = _appDBContext.ChatMessages.Where(c => c.ChatId == chatId).OrderBy(c=> c.PostDate).ToList();
+            ChatMessagesViewModel model = new ChatMessagesViewModel { ChatId = chatId, ChatMessages = messages };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index (ChatMessagesViewModel model)
+        public  IActionResult Index (ChatMessagesViewModel model)
         {
-            ChatMessage message = new ChatMessage { TextMessage = model.TextMessage, PostDate = DateTime.Now, Author = await _userManager.FindByNameAsync(model.UserName) };
+            ChatMessage message = new ChatMessage { TextMessage = model.TextMessage, PostDate = DateTime.Now, Author = model.UserName, ChatId = model.ChatId };
             _appDBContext.ChatMessages.Add(message);
             _appDBContext.SaveChanges();
-            return RedirectToAction($"/Index/{model.ChatId}");
+            return RedirectToAction("Index", "Chat", new { chatId = model.ChatId });
         }
     }
 }

@@ -2,21 +2,22 @@
 
 @{ ViewBag.Tittle = "Чат";}
 
+<div><a asp-action="Chats" asp-controller="Chat" class="btn btn-dark" asp-route-userName="@User.Identity.Name">Назад</a></div>
     <div class="container" style="text-align:center">
         @foreach (var message in Model.ChatMessages)
         {
-            @if (User.Identity.Name == message.Author.UserName)
+            @if (User.Identity.Name == message.Author)
             {
                 <div class="alert alert-dark mt-3" style="text-align:right">
-                    <b>@message.Author.UserName</b> <b style="text-align:right">@message.PostDate</b>
+                    <b>@message.Author</b> <b>@message.PostDate</b> <br />
                     <b>@message.TextMessage</b>
                 </div>
 
             }
             else
             {
-                <div class="alert alert-dark mt-3">
-                    <b>@message.Author.UserName</b> <b style="text-align:right">@message.PostDate</b>
+                <div class="alert alert-dark mt-3" style="text-align:left">
+                    <b>@message.Author</b> <b>@message.PostDate</b> <br />
                     <b>@message.TextMessage</b>
                 </div>
 

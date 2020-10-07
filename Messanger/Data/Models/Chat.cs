@@ -11,7 +11,7 @@ namespace Messanger.Data.Models
 
         public string Name { get; set; }
 
-        public ApplicationUser Creator { get; set; }
+        public string Creator { get; set; }
         
         public List<ApplicationUser>  Members { get; set; }
     }
